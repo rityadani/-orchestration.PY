@@ -1,0 +1,126 @@
+{
+    "event": {
+        "latency": 600,
+        "health": 0.5,
+        "failures": 2,
+        "services": [
+            "web",
+            "db"
+        ],
+        "environment": "prod"
+    },
+    "decision": {
+        "action": "monitor",
+        "target": "service",
+        "runtime_context": {
+            "latency": 600,
+            "health": 0.5,
+            "failures": 2,
+            "services": [
+                "web",
+                "db"
+            ],
+            "environment": "prod"
+        },
+        "rl_action": 7
+    },
+    "outcome": {
+        "success": true,
+        "next_state": {
+            "latency": 200,
+            "health": 0.9,
+            "failures": 0,
+            "services": [
+                "web",
+                "db"
+            ],
+            "environment": "prod"
+        },
+        "prev_health": 0.5
+    },
+    "timestamp": 1769262419.461262
+}
+{
+    "event": {
+        "latency": 1000,
+        "health": 0.2,
+        "failures": 5,
+        "services": [
+            "web"
+        ],
+        "environment": "dev"
+    },
+    "decision": {
+        "action": "restart",
+        "target": "service",
+        "runtime_context": {
+            "latency": 1000,
+            "health": 0.2,
+            "failures": 5,
+            "services": [
+                "web"
+            ],
+            "environment": "dev"
+        },
+        "rl_action": 2
+    },
+    "outcome": {
+        "failure": true,
+        "next_state": {
+            "latency": 1000,
+            "health": 0.1,
+            "failures": 6,
+            "services": [
+                "web"
+            ],
+            "environment": "dev"
+        },
+        "prev_health": 0.2
+    },
+    "timestamp": 1769262419.5705848
+}
+{
+    "event": {
+        "latency": 50,
+        "health": 0.95,
+        "failures": 0,
+        "services": [
+            "web",
+            "db",
+            "cache"
+        ],
+        "environment": "prod"
+    },
+    "decision": {
+        "action": "heal",
+        "target": "service",
+        "runtime_context": {
+            "latency": 50,
+            "health": 0.95,
+            "failures": 0,
+            "services": [
+                "web",
+                "db",
+                "cache"
+            ],
+            "environment": "prod"
+        },
+        "rl_action": 3
+    },
+    "outcome": {
+        "success": true,
+        "next_state": {
+            "latency": 50,
+            "health": 0.95,
+            "failures": 0,
+            "services": [
+                "web",
+                "db",
+                "cache"
+            ],
+            "environment": "prod"
+        },
+        "prev_health": 0.95
+    },
+    "timestamp": 1769262419.6764793
+}

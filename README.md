@@ -37,7 +37,8 @@ Validated Decision Intent
 - `app_spec_validator.py` - Action validation
 - `safety_guard.py` - Safety enforcement
 - `dashboard.py` - Advanced monitoring dashboard
-- `final_demo.py` - Demonstration script
+- `final_demo.py` - Demonstration script with verified artifacts
+- `mock_orchestrator.py` - Mock real orchestrator integration for testing
 
 ## 🏃‍♂️ Quick Start
 
@@ -86,6 +87,14 @@ The advanced dashboard provides:
 This system was built in a 5-day RL finalization sprint, transforming simulated RL into a real, production-safe decision system.
 
 ## 🤝 Contributing
+
+## ✨ Recent Enhancements
+
+- **Hardened Contract Validation**: Rejects invalid states with NOOP fallback.
+- **Strict Safety Envelopes**: Environment-based action allowlists (prod/dev/test).
+- **Extended Reward Logic**: Metrics-based rewards for latency, health, failures.
+- **Mock Orchestrator**: Simulated real integration for testing.
+- **Verified Demo Artifacts**: Detailed logs and traces in `demo_artifacts.json`.
 
 Built for Shivam Runtime integration. Safety dominates, RL learns autonomously.
 

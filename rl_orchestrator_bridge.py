@@ -18,8 +18,10 @@ class RLOOrchestratorBridge:
 
     def process_runtime_event(self, runtime_data):
         # Step 1: Validate runtime contract
-        if not self.contract_validator.validate(runtime_data):
-            raise ValueError("Runtime data does not match contract")
+        is_valid, error_msg = self.contract_validator.validate(runtime_data)
+        if not is_valid:
+            logging.warning(f"Runtime data invalid: {error_msg}. Using NOOP fallback.")
+            runtime_data = self.contract_validator.get_noop_fallback()  # NOOP fallback
 
         # Step 2: Adapt to RL state
         rl_state = self.state_adapter.adapt(runtime_data)
@@ -84,10 +86,29 @@ class RLOOrchestratorBridge:
         logging.info(f"Reward recorded: {reward}, Change: {reward_change}")
 
     def _calculate_reward(self, outcome):
-        # Simple reward: +1 for success, -1 for failure, 0 for neutral
+        # Extended reward function based on runtime metrics
+        reward = 0
+        next_state = outcome.get('next_state', {})
+        
+        # Base reward for success/failure
         if outcome.get('success'):
-            return 1
+            reward += 1
         elif outcome.get('failure'):
-            return -1
-        else:
-            return 0
+            reward -= 1
+        
+        # Bonus/penalty based on health improvement
+        health_improvement = next_state.get('health', 0) - outcome.get('prev_health', 0)
+        reward += health_improvement * 0.5  # Scale health changes
+        
+        # Penalty for high latency
+        latency = next_state.get('latency', 0)
+        if latency > 500:
+            reward -= 0.5
+        elif latency < 100:
+            reward += 0.2
+        
+        # Penalty for failures
+        failures = next_state.get('failures', 0)
+        reward -= failures * 0.1
+        
+        return reward
